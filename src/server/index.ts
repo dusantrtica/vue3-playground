@@ -4,7 +4,7 @@ import bodyParser, { json } from 'body-parser';
 import { Post, thisMonth, thisWeek, today } from '../posts';
 import cookieParser from 'cookie-parser';
 import jsonwebtoken from 'jsonwebtoken';
-import { User } from '../users';
+import { NewUser, User } from '../users';
 
 const app = express();
 app.use(cors());
@@ -60,6 +60,16 @@ app.post<{}, {}, User>('/users', (req, res) => {
 app.post('/logout', (req, res) => {
     res.cookie(COOKIE, '', {httpOnly: true});
     res.status(200).end();
+});
+
+app.post<{}, {}, NewUser>('/login', (req, res) => {
+    const targetUser = allUsers.find(x => x.username === req.body.username);
+    if (!targetUser || targetUser?.password !== req.body.password) {
+        res.status(401).end();
+    } else {
+        authenticate(targetUser.id, req, res);
+        res.status(200).end();
+    }
 });
 
 

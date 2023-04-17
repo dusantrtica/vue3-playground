@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useModal } from '../composables/modal';
 import { useUsers } from '../stores/users';
-import SignupForm from './SignupForm.vue';
+import SignupForm from './UserForm.vue';
 
 const modal = useModal();
 const usersStore = useUsers();
