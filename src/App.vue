@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import Navbar from './components/Navbar.vue';
-import FormInput from './components/FormInput.vue';
 import { useModal } from './composables/modal';
 import { computed, ref } from '@vue/reactivity';
-import { validate, length, required } from './validation';
+import {useUsers} from './stores/users';
+
 
 const modal = useModal();
 const modalStyle = computed(() => {
@@ -11,6 +11,10 @@ const modalStyle = computed(() => {
     display: modal.show.value ? 'block' : 'none'
   };
 })
+
+const usersStore = useUsers();
+
+usersStore.authenticate();
 
 </script>
 <template>
